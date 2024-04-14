@@ -14,15 +14,18 @@ function CategoryList() {
           className="flex justify-between items-center w-25 mt-4 ml-20 mr-20 bg-zinc-800 px-4 py-2 rounded"
           key={category.id}
         >
-          <Link to={`/${category.name}`} key={category.id} className='flex flex-wrap items-center justify-center h-full'>
-            <div className='text-center'>
-              <h1 className='text-slate-100 mx-auto overflow-ellipsis overflow-hidden whitespace-nowrap text-2xl'>
+          <Link to={`/${category.name}`} key={category.id} className="block w-full">
+            <div className="text-center">
+              <h1 className="text-slate-100 mx-auto overflow-ellipsis overflow-hidden whitespace-nowrap text-2xl">
                 {category.name}
               </h1>
             </div>
           </Link>
           <button
-            onClick={() => dispatch(removeCategories(category.id, category.name))}
+            onClick={(e) => {
+              e.stopPropagation(); // Prevent the click event from propagating to the parent Link
+              dispatch(removeCategories(category.id, category.name));
+            }}
             className="text-white bg-red-500 border-0 py-1 px-4 focus:outline-none hover:bg-red-600 rounded text-md"
           >
             <svg
@@ -48,6 +51,7 @@ function CategoryList() {
       ))}
     </ul>
   );
+    
   
 }
 
